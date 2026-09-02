@@ -88,7 +88,7 @@ resource "aws_iam_policy" "ecs_egress_vault_access" {
           ]
           # Scope to the egress path prefix only. Secrets Manager ARNs append a
           # random 6-char suffix, so the wildcard covers "<prefix>/*-??????".
-          Resource = "arn:aws:secretsmanager:*:*:secret:${var.egress_secrets_manager_path_prefix}/*"
+          Resource = "arn:${data.aws_partition.current.partition}:secretsmanager:*:*:secret:${var.egress_secrets_manager_path_prefix}/*"
         }
       ],
       # KMS only when a customer-managed CMK is configured; the AWS-managed key
@@ -134,7 +134,7 @@ resource "aws_iam_policy" "ecs_exec_task_execution" {
           "logs:DescribeLogStreams",
           "logs:PutLogEvents"
         ]
-        Resource = "arn:aws:logs:*:*:*"
+        Resource = "arn:${data.aws_partition.current.partition}:logs:*:*:*"
       }
     ]
   })
@@ -238,7 +238,7 @@ resource "aws_iam_policy" "cognito_iam_read" {
           "cognito-idp:ListUsers",
           "cognito-idp:AdminListGroupsForUser"
         ]
-        Resource = "arn:aws:cognito-idp:*:*:userpool/${var.cognito_user_pool_id}"
+        Resource = "arn:${data.aws_partition.current.partition}:cognito-idp:*:*:userpool/${var.cognito_user_pool_id}"
       }
     ]
   })
