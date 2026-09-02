@@ -1918,3 +1918,12 @@ variable "egress_secrets_manager_path_prefix" {
   type        = string
   default     = "mcp/egress"
 }
+
+variable "deployment_circuit_breaker" {
+  description = "ECS deployment circuit breaker for the registry, auth-server and mcpgw services. With rollback enabled, a deployment whose tasks fail health checks is reverted to the last healthy task definition automatically. Null leaves the AWS default (disabled)."
+  type = object({
+    enable   = bool
+    rollback = bool
+  })
+  default = null
+}

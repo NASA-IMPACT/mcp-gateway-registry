@@ -6,14 +6,15 @@ module "ecs_service_auth" {
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
 
-  name                     = "${local.name_prefix}-auth"
-  cluster_arn              = var.ecs_cluster_arn
-  cpu                      = tonumber(var.cpu)
-  memory                   = tonumber(var.memory)
-  desired_count            = var.enable_autoscaling ? var.autoscaling_min_capacity : var.auth_replicas
-  enable_autoscaling       = var.enable_autoscaling
-  autoscaling_min_capacity = var.autoscaling_min_capacity
-  autoscaling_max_capacity = var.autoscaling_max_capacity
+  name                       = "${local.name_prefix}-auth"
+  cluster_arn                = var.ecs_cluster_arn
+  deployment_circuit_breaker = var.deployment_circuit_breaker
+  cpu                        = tonumber(var.cpu)
+  memory                     = tonumber(var.memory)
+  desired_count              = var.enable_autoscaling ? var.autoscaling_min_capacity : var.auth_replicas
+  enable_autoscaling         = var.enable_autoscaling
+  autoscaling_min_capacity   = var.autoscaling_min_capacity
+  autoscaling_max_capacity   = var.autoscaling_max_capacity
   autoscaling_policies = var.enable_autoscaling ? {
     cpu = {
       policy_type = "TargetTrackingScaling"
@@ -766,6 +767,7 @@ module "ecs_service_registry" {
 
   name                              = "${local.name_prefix}-registry"
   cluster_arn                       = var.ecs_cluster_arn
+  deployment_circuit_breaker        = var.deployment_circuit_breaker
   cpu                               = tonumber(var.cpu)
   memory                            = tonumber(var.memory)
   desired_count                     = var.enable_autoscaling ? var.autoscaling_min_capacity : var.registry_replicas
@@ -2245,14 +2247,15 @@ module "ecs_service_mcpgw" {
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
 
-  name                     = "${local.name_prefix}-mcpgw"
-  cluster_arn              = var.ecs_cluster_arn
-  cpu                      = "512"
-  memory                   = "1024"
-  desired_count            = var.mcpgw_replicas
-  enable_autoscaling       = var.enable_autoscaling
-  autoscaling_min_capacity = var.autoscaling_min_capacity
-  autoscaling_max_capacity = var.autoscaling_max_capacity
+  name                       = "${local.name_prefix}-mcpgw"
+  cluster_arn                = var.ecs_cluster_arn
+  deployment_circuit_breaker = var.deployment_circuit_breaker
+  cpu                        = "512"
+  memory                     = "1024"
+  desired_count              = var.mcpgw_replicas
+  enable_autoscaling         = var.enable_autoscaling
+  autoscaling_min_capacity   = var.autoscaling_min_capacity
+  autoscaling_max_capacity   = var.autoscaling_max_capacity
   autoscaling_policies = var.enable_autoscaling ? {
     cpu = {
       policy_type = "TargetTrackingScaling"
