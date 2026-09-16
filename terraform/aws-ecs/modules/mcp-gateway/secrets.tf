@@ -131,7 +131,9 @@ resource "aws_secretsmanager_secret_version" "nginx_marker_secret" {
 # Keycloak client secrets (created with placeholder, updated by init-keycloak.sh)
 resource "aws_secretsmanager_secret" "keycloak_client_secret" {
   #checkov:skip=CKV2_AWS_57:Keycloak client secret managed by Keycloak init script, not rotatable via Secrets Manager
-  name                    = "mcp-gateway-keycloak-client-secret"
+  # Namespaced like every other secret in this module. A fixed name means two
+  # deployments in one account collide on the second apply.
+  name_prefix             = "${local.name_prefix}-keycloak-client-secret-"
   description             = "Keycloak web client secret (updated by init-keycloak.sh after deployment)"
   recovery_window_in_days = 0
   kms_key_id              = aws_kms_key.secrets.id
@@ -151,7 +153,7 @@ resource "aws_secretsmanager_secret_version" "keycloak_client_secret" {
 
 resource "aws_secretsmanager_secret" "keycloak_m2m_client_secret" {
   #checkov:skip=CKV2_AWS_57:Keycloak M2M client secret managed by Keycloak init script, not rotatable via Secrets Manager
-  name                    = "mcp-gateway-keycloak-m2m-client-secret"
+  name_prefix             = "${local.name_prefix}-keycloak-m2m-client-secret-"
   description             = "Keycloak M2M client secret (updated by init-keycloak.sh after deployment)"
   recovery_window_in_days = 0
   kms_key_id              = aws_kms_key.secrets.id
