@@ -6,6 +6,9 @@ module "ecs_service_auth" {
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
 
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
+
   name                       = "${local.name_prefix}-auth"
   cluster_arn                = var.ecs_cluster_arn
   deployment_circuit_breaker = var.deployment_circuit_breaker
@@ -764,6 +767,9 @@ module "ecs_service_registry" {
   #checkov:skip=CKV_TF_1:Module version is pinned via version constraint
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
+
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
 
   name                              = "${local.name_prefix}-registry"
   cluster_arn                       = var.ecs_cluster_arn
@@ -2121,6 +2127,9 @@ module "ecs_service_currenttime" {
   version = "~> 6.0"
   count   = var.enable_demo_servers ? 1 : 0
 
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
+
   name                     = "${local.name_prefix}-currenttime"
   cluster_arn              = var.ecs_cluster_arn
   cpu                      = "512"
@@ -2246,6 +2255,9 @@ module "ecs_service_mcpgw" {
   #checkov:skip=CKV_TF_1:Module version is pinned via version constraint
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
+
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
 
   name                       = "${local.name_prefix}-mcpgw"
   cluster_arn                = var.ecs_cluster_arn
@@ -2505,6 +2517,9 @@ module "ecs_service_realserverfaketools" {
   version = "~> 6.0"
   count   = var.enable_demo_servers ? 1 : 0
 
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
+
   name                     = "${local.name_prefix}-realserverfaketools"
   cluster_arn              = var.ecs_cluster_arn
   cpu                      = "512"
@@ -2628,6 +2643,9 @@ module "ecs_service_flight_booking_agent" {
   version = "~> 6.0"
   count   = var.enable_demo_servers ? 1 : 0
 
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
+
   name                     = "${local.name_prefix}-flight-booking-agent"
   cluster_arn              = var.ecs_cluster_arn
   cpu                      = "512"
@@ -2750,6 +2768,9 @@ module "ecs_service_travel_assistant_agent" {
   source  = "terraform-aws-modules/ecs/aws//modules/service"
   version = "~> 6.0"
   count   = var.enable_demo_servers ? 1 : 0
+
+  task_exec_iam_role_permissions_boundary = var.iam_role_permissions_boundary
+  tasks_iam_role_permissions_boundary     = var.iam_role_permissions_boundary
 
   name                     = "${local.name_prefix}-travel-assistant-agent"
   cluster_arn              = var.ecs_cluster_arn

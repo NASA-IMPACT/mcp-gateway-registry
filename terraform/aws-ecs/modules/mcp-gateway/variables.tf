@@ -1919,6 +1919,12 @@ variable "egress_secrets_manager_path_prefix" {
   default     = "mcp/egress"
 }
 
+variable "iam_role_permissions_boundary" {
+  description = "ARN of the permissions boundary to apply to every IAM role this module creates. Required in AWS environments that mandate boundaries; null keeps existing behaviour unchanged."
+  type        = string
+  default     = null
+}
+
 variable "deployment_circuit_breaker" {
   description = "ECS deployment circuit breaker for the registry, auth-server and mcpgw services. With rollback enabled, a deployment whose tasks fail health checks is reverted to the last healthy task definition automatically. Null leaves the AWS default (disabled)."
   type = object({
