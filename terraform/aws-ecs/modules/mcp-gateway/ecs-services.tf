@@ -167,15 +167,15 @@ module "ecs_service_auth" {
         },
         {
           name  = "KEYCLOAK_REALM"
-          value = "mcp-gateway"
+          value = var.keycloak_realm
         },
         {
           name  = "KEYCLOAK_CLIENT_ID"
-          value = "mcp-gateway-web"
+          value = var.keycloak_client_id
         },
         {
           name  = "KEYCLOAK_M2M_CLIENT_ID"
-          value = "mcp-gateway-m2m"
+          value = var.keycloak_m2m_client_id
         },
         {
           name  = "ENTRA_ENABLED"
@@ -921,11 +921,11 @@ module "ecs_service_registry" {
         },
         {
           name  = "KEYCLOAK_REALM"
-          value = "mcp-gateway"
+          value = var.keycloak_realm
         },
         {
           name  = "KEYCLOAK_CLIENT_ID"
-          value = "mcp-gateway-web"
+          value = var.keycloak_client_id
         },
         {
           name  = "AUTH_PROVIDER"

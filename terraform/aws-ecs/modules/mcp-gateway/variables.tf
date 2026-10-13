@@ -214,6 +214,27 @@ variable "keycloak_domain" {
   default     = ""
 }
 
+# Realm and client ids were literals in the task definitions. An existing
+# Keycloak rarely matches those names, so they are inputs. Defaults preserve
+# the previous behaviour.
+variable "keycloak_realm" {
+  description = "Keycloak realm name. Case-sensitive: it is a URL path segment"
+  type        = string
+  default     = "mcp-gateway"
+}
+
+variable "keycloak_client_id" {
+  description = "Confidential web client used for the browser login flow"
+  type        = string
+  default     = "mcp-gateway-web"
+}
+
+variable "keycloak_m2m_client_id" {
+  description = "Service-account client used for machine-to-machine tokens"
+  type        = string
+  default     = "mcp-gateway-m2m"
+}
+
 variable "enable_autoscaling" {
   description = "Whether to enable auto-scaling for ECS services"
   type        = bool
