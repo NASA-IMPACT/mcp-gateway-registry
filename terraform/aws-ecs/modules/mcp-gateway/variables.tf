@@ -235,6 +235,16 @@ variable "keycloak_m2m_client_id" {
   default     = "mcp-gateway-m2m"
 }
 
+# An https KEYCLOAK_URL makes the registry emit proxy_ssl_verify on, pointing at
+# /etc/nginx/certs/keycloak-ca.pem -- a file that only exists if you mount your
+# own CA, so nginx -t fails and the registry never converges. A publicly-trusted
+# Keycloak wants the image's own trust store instead. Verification stays on.
+variable "keycloak_ca_bundle" {
+  description = "PEM CA bundle nginx verifies the Keycloak upstream against"
+  type        = string
+  default     = "/etc/ssl/certs/ca-certificates.crt"
+}
+
 variable "enable_autoscaling" {
   description = "Whether to enable auto-scaling for ECS services"
   type        = bool

@@ -178,6 +178,10 @@ module "ecs_service_auth" {
           value = var.keycloak_m2m_client_id
         },
         {
+          name  = "KEYCLOAK_ENABLED"
+          value = var.keycloak_domain != "" ? "true" : "false"
+        },
+        {
           name  = "ENTRA_ENABLED"
           value = tostring(var.entra_enabled)
         },
@@ -918,6 +922,10 @@ module "ecs_service_registry" {
         {
           name  = "KEYCLOAK_ENABLED"
           value = var.keycloak_domain != "" ? "true" : "false"
+        },
+        {
+          name  = "KEYCLOAK_CA_BUNDLE"
+          value = var.keycloak_ca_bundle
         },
         {
           name  = "KEYCLOAK_REALM"
